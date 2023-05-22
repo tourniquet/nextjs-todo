@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
+import TodoContext from '../../contexts/TodoContext'
 
 const Input = styled.input.attrs({
   type: 'text'
@@ -13,11 +14,9 @@ const Input = styled.input.attrs({
   padding: 0 44px;
 `
 
-let nextId = 0
-
 export default function NewItem (): JSX.Element {
   const [todo, setTodo] = useState('')
-  const [todos, setTodos] = useState<any[]>([])
+  const {todos, addTodo} = useContext(TodoContext)
 
   return (
     <>
@@ -28,20 +27,11 @@ export default function NewItem (): JSX.Element {
         onChange={e => setTodo(e.target.value)}
         onKeyDown={e => {
           if (e.code === 'Enter' && Boolean(todo)) {
-            setTodos([
-              ...todos,
-              { id: nextId++, todo }
-            ])
+            addTodo(todo)
             setTodo('')
           }
         }}
       />
-
-      <ul>
-        {todos.map(item => (
-          <li key={item.id}>{item.todo}</li>
-        ))}
-      </ul>
     </>
   )
 }
