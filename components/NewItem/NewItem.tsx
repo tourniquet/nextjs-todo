@@ -16,7 +16,7 @@ const Input = styled.input.attrs({
 
 export default function NewItem (): JSX.Element {
   const [todo, setTodo] = useState('')
-  const {todos, addTodo} = useContext(TodoContext)
+  const { addTodo } = useContext(TodoContext)
 
   return (
     <>
