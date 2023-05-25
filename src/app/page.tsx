@@ -1,12 +1,15 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
 
 import NewItem from '../../components/NewItem/NewItem'
+import UnorderedList from '../../components/UnorderedList/UnorderedList'
 
-export default function Home() {
+import { TodoProvider } from '../../contexts/TodoContext'
+
+export default function Home (): JSX.Element {
   return (
-    <main className={styles.main}>
+    <TodoProvider>
       <NewItem />
-    </main>
+      <UnorderedList />
+    </TodoProvider>
   )
 }
