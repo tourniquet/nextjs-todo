@@ -5,7 +5,7 @@ import { createContext, useState } from 'react'
 const TodoContext = createContext()
 
 export function TodoProvider({ children }) {
-  const [todos, setTodos] = useState([{ todo: 'something', id: 0 }])
+  const [todos, setTodos] = useState([])
 
   const addTodo = (todo) => {
     const newTodo = {
@@ -17,8 +17,12 @@ export function TodoProvider({ children }) {
     setTodos((prevState) => [...prevState, newTodo])
   }
 
+  const switchStatus = (id) => {
+    setTodos(todos.map(todo => (todo.id === Number(id)) ? { ...todo, done: !todo.done } : todo))
+  }
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, switchStatus }}>
       {children}
     </TodoContext.Provider>
   )
